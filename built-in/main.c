@@ -6,7 +6,7 @@
 /*   By: nikhtib <nikhtib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 12:14:08 by nikhtib           #+#    #+#             */
-/*   Updated: 2025/05/04 19:22:05 by nikhtib          ###   ########.fr       */
+/*   Updated: 2025/05/05 16:13:49 by nikhtib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,10 @@ int main(int ac, char **av, char **env)
 	int id = fork();
 	while (1)
 	{
+		/////prompt stll not dn
 		printf("$");
 		readline();
+		/////
 		if(id == 0)
 		{
 			if (is_builtin(cmmd))
