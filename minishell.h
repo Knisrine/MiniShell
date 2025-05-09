@@ -6,7 +6,8 @@
 #include <limits.h>
 #include <stdlib.h>
 #include <stdbool.h>
-
+#include <readline/history.h>
+#include <readline/readline.h>
 
 typedef struct t_list
 {
@@ -21,7 +22,6 @@ typedef struct t_variables
 {
 	t_list	*list;
 	char	**new_env;
-	// int		fd[2];
 	int		len_env;
 	int		arc;
 }	t_var;

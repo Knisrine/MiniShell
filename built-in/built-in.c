@@ -6,7 +6,7 @@
 /*   By: nikhtib <nikhtib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 20:35:34 by nikhtib           #+#    #+#             */
-/*   Updated: 2025/05/02 21:38:34 by nikhtib          ###   ########.fr       */
+/*   Updated: 2025/05/08 20:57:55 by nikhtib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,9 @@ int	ft_strcmp(char *s1, char *s2)
 	return 0;
 }
 
-
-
 int	is_builtin(char *cmmd)
 {
+	
     char *builtin[] = {"echo", "cd", "pwd", "env", "export", "unset", "exit"};
     int	i;
 	
@@ -51,6 +50,7 @@ void	echo_function(char *s)
 		write(1, &(*s), 1);
 		s++;
 	}
+	exit(0);
 }
 
 void	exec_builtin(char *cmmd, char **av, char **env, t_var *v)
@@ -76,7 +76,7 @@ void	exec_builtin(char *cmmd, char **av, char **env, t_var *v)
 			return;
 		}
 		else
-		perror("chdir failed !!");
+		printf("chdir failed !!");
 	}
 	else if(ft_strcmp(builtin[2], cmmd) == 0)
 	{
