@@ -6,7 +6,7 @@
 /*   By: nikhtib <nikhtib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 20:09:48 by nikhtib           #+#    #+#             */
-/*   Updated: 2025/05/06 23:20:44 by nikhtib          ###   ########.fr       */
+/*   Updated: 2025/05/13 19:49:18 by nikhtib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	ft_removelst(t_var *v, char *s)
 {
+  
   if(!s)
     return;
   t_list *head;
@@ -21,16 +22,17 @@ void	ft_removelst(t_var *v, char *s)
 
   head = v->list;
   current = v->list;
+        
   if(ft_strcmp(current->var, get_var(s)) == 0)
   {
-	head = current->next;
-	free(current);
-	return;
+    head = current->next;
+    free(current);
+    return;
   }
   while (head->next)
   {
-	current = head->next;
-    if(ft_strcmp(current->var, s) == 0)
+    current = head->next;
+      if(ft_strcmp(current->var, s) == 0)
 	{
 		head->next = current->next;
 		free (current);

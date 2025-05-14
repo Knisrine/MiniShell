@@ -6,7 +6,7 @@
 /*   By: nikhtib <nikhtib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/20 16:28:54 by nikhtib           #+#    #+#             */
-/*   Updated: 2025/05/04 19:21:14 by nikhtib          ###   ########.fr       */
+/*   Updated: 2025/05/14 18:57:25 by nikhtib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,29 +34,7 @@ char    *get_var(char *s)
     }
     return (&dup[j]); 
 }
-////////////////////
-// int maerft(char *arg)
-// {
-// 	int	i;
-// 	int	flag;
-	
-// 	i = 0;
-// 	flag = 0;
-// 	while(arg[i])
-// 	{
-// 		if(arg[i] == '=')
-// 		{
-// 			flag = 1;
-// 			i++;
-// 			break;
-// 		}
-// 		i++;	
-// 	}
-// 	if(flag == 1 && arg[i] != '\0')
-// 		return (1);
-// 	return (0);
-// }	
-///
+
 void    printls(t_list *list)
 {
     t_list *head;
@@ -73,28 +51,40 @@ void    printls(t_list *list)
         
     }
 }
-t_list  *make_list(char **env)
+
+
+void  make_list(t_var *v, char **env)
 {
-    int i;
-    char *var;
-    char *value;
-    t_list *new  = NULL;
-    t_list *list = NULL;
-    t_list *head;
-    
-    head = list;
+    int         i;
+    static int  reminder;
+    char        *var;
+    char        *value;
+    t_list      *new  = NULL;
+    t_list      *head;
+    v->list = NULL;
+    head = v->list;
     i = 0;
     while(env[i])
     {
         value = ft_strdup(ft_strchr(env[i], '='));
         var = ft_strdup(get_var(env[i]));
+        if(ft_strcmp(var, "PWD") == 0)
+            v->pwd = ft_lstnew(ft_strdup(var) ,ft_strdup(value), ft_strdup(env[i]), 0);
+        if(ft_strcmp(var, "OLDPWD") == 0)
+            v->oldpwd = ft_lstnew(ft_strdup(var) ,ft_strdup(value), ft_strdup(env[i]), 0);
         new = ft_lstnew(ft_strdup(var) ,ft_strdup(value), ft_strdup(env[i]), 0);
-        ft_addback(&list, new);
+        ft_addback(&v->list, new);
         free(value);
         free(var);
         i++;
     }
-    return list;
+    if(reminder == 0)
+    {
+       ft_removelst(v, "OLDPWD");
+       reminder++;
+    }
+    else if(reminder == 1)
+        ft_addback(&v->list, v->oldpwd);
 }
 
 void    exp_var(t_var *v)
@@ -123,7 +113,7 @@ void    export(char **env, char **av, t_var *v)
 		exp_var(v);
 		exit(0);
 	}
-	v->list = make_list(env);
+	make_list(v, env);
 	head = v->list;
 	while (v->list)
 	{
@@ -137,13 +127,9 @@ void    export(char **env, char **av, t_var *v)
 		v->list = (v->list)->next;
 	}
 	v->list = head;
-    // if(maerft(av[2]) == 1)
-	// ft_addback(&v->list, new);
-    // else
 	var = get_var(av[2]);
 	value = ft_strchr(av[2], '=');
 	new = ft_lstnew(ft_strdup(var), ft_strdup(value), ft_strdup(av[2]), 1);
 	ft_addback(&v->list, new);
 	v->list = head;
-	// printls(v->list);
 }

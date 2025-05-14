@@ -9,7 +9,7 @@
 #include <readline/history.h>
 #include <readline/readline.h>
 
-typedef struct t_list
+typedef struct t_list 
 {
 	char			*content;
 	char			*var;
@@ -21,6 +21,9 @@ typedef struct t_list
 typedef struct t_variables
 {
 	t_list	*list;
+	t_list	*oldpwd;
+	t_list	*pwd;
+	char	*full_path;
 	char	**new_env;
 	int		len_env;
 	int		arc;
@@ -43,12 +46,13 @@ void    export(char **env, char **av, t_var *v);
 void    ft_addback(t_list **list, t_list *new);
 int		ft_strncmp(char *s1, char *s2, int n);
 char	**ft_split(char const *s, char c);
-void	env_function(char **s, int ac);
+void	ft_removelst(t_var *v, char *s);
+void	env_function(t_var v, int ac);
 int		ft_strcmp(char *s1, char *s2);
 void    unset(char **av, t_var *v);
 char	*ft_strchr(char *s, int c);
 int		is_builtin(char *cmmd);
-t_list  *make_list(char **env);
+void  	make_list(t_var *v, char **env);
 char	*ft_strdup(char *s1);
 int		ft_strlen(char *str);
 void    error_msg(char *msg);
@@ -56,6 +60,8 @@ int     len_env(char **env);
 char    *get_var(char *s);
 void    new_env(t_var *v);
 void	ft_removelst(t_var *v, char *s);
+char	*valid_path(char **env, char *cmmd, char *var);
+char    *ft_strjoin(char *s1, char *s2);
 ///
 void    printls(t_list *list);
 #endif

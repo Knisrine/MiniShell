@@ -1,10 +1,10 @@
 CC = cc
-CFLAGS = -Wall -Wextra -Werror 
+CFLAGS = -Wall -Wextra -Werror  -fsanitize=address -g
 LDFLAGS = -lreadline
 NAME = minishell
 MFILES = ./built-in/main.c ./built-in/built-in.c ./built-in/ft_strdup.c ./built-in/update_env.c ./built-in/ft_addback.c ./built-in/ft_lstnew.c \
 		 ./built-in/ft_strlen.c ./built-in/export.c ./built-in/error_msg.c ./built-in/env_function.c ./built-in/len_env.c ./built-in/ft_strncmp.c \
-		 ./built-in/ft_strchr.c ./built-in/unset.c ./built-in/new_env.c ./built-in/ft_split.c
+		 ./built-in/ft_strchr.c ./built-in/unset.c ./built-in/new_env.c ./built-in/ft_split.c get_path.c ft_strjoin.c 
 OFILES = $(MFILES:.c=.o)
 
 all: $(NAME)

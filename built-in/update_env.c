@@ -14,18 +14,22 @@
 
 char	*ft_strcat(char *dest, char *src)
 {
-	int	i;
-	int	len;
+	int		i;
+	int		len;
+	char	*s;
 
-	i = 0;
-	len = ft_strlen(dest);
-	dest[len + 1] = '=';
-	while(src[i])
-	{
-		dest[len + i] = src[i];
-		i++;
-	}
-	return (dest);
+	len = ft_strlen(dest) + 1 + ft_strlen(src);
+	s	= malloc(len + 1);
+	if(!s)
+		return 0;
+	i	= 0;
+	while(dest[i++])
+		s[i] = dest[i];
+	s[i] = '=';
+	while(src[i++])
+		s[i] = src[i];
+	s[i] = '\0';
+	return (s);
 }
 
 void	update_env(t_var *v, char *pwd, char *old_pwd)
@@ -42,6 +46,7 @@ void	update_env(t_var *v, char *pwd, char *old_pwd)
 		{
 			(v->list)->value = ft_strdup(pwd);
 			s = ft_strcat((v->list)->var, pwd);
+			// printf("pwd -> %s\n old_pwd -> %s\n", pwd,old_pwd);
 			(v->list)->content = ft_strdup(s);
 		}
 		if(ft_strcmp((v->list)->var, "OLDPWD") == 0)
