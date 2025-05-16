@@ -6,7 +6,7 @@
 /*   By: nikhtib <nikhtib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 20:09:48 by nikhtib           #+#    #+#             */
-/*   Updated: 2025/05/13 19:49:18 by nikhtib          ###   ########.fr       */
+/*   Updated: 2025/05/16 12:04:04 by nikhtib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ void	ft_removelst(t_var *v, char *s)
   }
     
 }
+
 void    unset(char **av, t_var *v)
 {
 	if(v->arc != 3)

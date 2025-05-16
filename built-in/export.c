@@ -6,7 +6,7 @@
 /*   By: nikhtib <nikhtib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/20 16:28:54 by nikhtib           #+#    #+#             */
-/*   Updated: 2025/05/14 18:57:25 by nikhtib          ###   ########.fr       */
+/*   Updated: 2025/05/15 16:22:26 by nikhtib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ void    printls(t_list *list)
     }
 }
 
-
 void  make_list(t_var *v, char **env)
 {
     int         i;
@@ -66,7 +65,7 @@ void  make_list(t_var *v, char **env)
     i = 0;
     while(env[i])
     {
-        value = ft_strdup(ft_strchr(env[i], '='));
+        value = ft_strdup(ft_strchr(env[i], '=')); 
         var = ft_strdup(get_var(env[i]));
         if(ft_strcmp(var, "PWD") == 0)
             v->pwd = ft_lstnew(ft_strdup(var) ,ft_strdup(value), ft_strdup(env[i]), 0);
@@ -102,6 +101,17 @@ void    exp_var(t_var *v)
     }
 }
 
+void    display_export_var(t_var *v)
+{
+    while (v->list)
+    {
+        printf("declare -x ");
+        printf("%s\n", v->list->content);
+        v->list = v->list->next;
+    }
+        
+}
+
 void    export(char **env, char **av, t_var *v)
 {
 	t_list   *head;
@@ -110,11 +120,13 @@ void    export(char **env, char **av, t_var *v)
 	char *value;
 	if(v->arc == 2)
 	{
+        display_export_var(v);
 		exp_var(v);
 		exit(0);
 	}
 	make_list(v, env);
 	head = v->list;
+    
 	while (v->list)
 	{
 		if (ft_strcmp((v->list)->var, get_var(av[2])) == 0)
@@ -132,4 +144,6 @@ void    export(char **env, char **av, t_var *v)
 	new = ft_lstnew(ft_strdup(var), ft_strdup(value), ft_strdup(av[2]), 1);
 	ft_addback(&v->list, new);
 	v->list = head;
+    display_export_var(v);
+    exit(0);
 }

@@ -6,7 +6,7 @@
 /*   By: nikhtib <nikhtib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 19:37:06 by nikhtib           #+#    #+#             */
-/*   Updated: 2025/05/14 15:15:09 by nikhtib          ###   ########.fr       */
+/*   Updated: 2025/05/15 11:24:43 by nikhtib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,21 +46,21 @@
 void	env_function(t_var v, int ac)
 {
 	int	i;
-	char *path_env;
-	
-	i = 0;
+	// char *path_env;
 	if(ac > 2)
 	{
 		error_msg("env : with no options !\n");
 		exit(0);
 	}
 	new_env(&v);
-	path_env = valid_path(v.new_env, "env", "_=");
+	/////_= var
+	// path_env = valid_path(v.new_env, "env", "_=");
 	
-	// i = 0;
-	// while (v.new_env[i])
-	// { 
-	// 	printf("%s\n", v.new_env[i]);
-	// 	i++;
-	// }
+	i = 0;
+	while (v.new_env[i])
+	{ 
+		printf("%s\n", v.new_env[i]);
+		i++;
+	}
+	exit(0);
 }

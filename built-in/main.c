@@ -6,7 +6,7 @@
 /*   By: nikhtib <nikhtib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 12:14:08 by nikhtib           #+#    #+#             */
-/*   Updated: 2025/05/14 18:42:01 by nikhtib          ###   ########.fr       */
+/*   Updated: 2025/05/16 09:43:43 by nikhtib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,36 +28,37 @@ int main(int ac, char **av, char **env)
 		return 0; 
 	// int i = 0;
 
-	// while (1)
-	// {
-	// 	input = readline("minishell> ");
-		// readline();
-		if (is_builtin(cmmd))
+	//while (1)
+	//{
+	//input = readline("minishell> ");
+	// readline();
+	if (is_builtin(cmmd))
+	{
+		exec_builtin(cmmd, av, env, &v);
+		new_env(&v);
+		// while(v.new_env[i])
+		// {
+		// 	printf("%s\n", v.new_env[i]);
+		// 	i++;
+		// }
+		
+	}
+	else
+	{	
+		//traite cmmd if    
+		id = fork();
+		if(id == 0)
 		{
-			exec_builtin(cmmd, av, env, &v);
-			new_env(&v);
-			// while(v.new_env[i])
-			// {
-			// 	printf("%s\n", v.new_env[i]);
-			// 	i++;
-			// }
+			////command
+			if(!access(cmmd,X_OK))
+				error_msg("command not found !");
+			char *path = "/bin/ls";
+			execve(path, &av[1], env);
+			error_msg("execve failed !");
 		}
-		else
-		{	
-			id = fork();
-			if(id == 0)
-			{
-				////command
-				// if(access(cmmd,X_OK))
-				// 	error_msg("command not found !");
-				char *path = "/bin/ls";
-				execve(path, &av[1], env);
-				error_msg("execve failed !");
-			}
-		}
+	}
 
-			
-		// wait(&id);
+		// wait(&id);*
 		// printf("pwd -->%s\n", env[13]);
 		// else
 		// {
@@ -70,7 +71,7 @@ int main(int ac, char **av, char **env)
 		// 		exit(1);
 		// 	}
 		// }
-	}
+}
 // }
 	// built-in D
 	// commndes

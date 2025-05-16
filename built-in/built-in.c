@@ -6,7 +6,7 @@
 /*   By: nikhtib <nikhtib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 20:35:34 by nikhtib           #+#    #+#             */
-/*   Updated: 2025/05/14 18:52:10 by nikhtib          ###   ########.fr       */
+/*   Updated: 2025/05/16 12:04:39 by nikhtib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,12 @@ int	ft_strcmp(char *s1, char *s2)
 
 int	is_builtin(char *cmmd)
 {
-    char *builtin[] = {"echo", "cd", "pwd", "env", "export", "unset", "exit"};
+    char *builtin[] = {"echo", "cd", "pwd", "env", "export", "unset", "exit",NULL};
     int	i;
 	
 	i = 0;
     while (builtin[i])
     {
-		
         if (ft_strcmp(cmmd, builtin[i]) == 0)
             return 1;
         i++;
@@ -57,7 +56,7 @@ int	only_n(char *s)
 
 int	echo_option(char *option)
 {
-	if((option[0] == '-') && only_n(option + 1))
+	if((option[0] == '-') && (only_n(option + 1) == 0))
 		return (1);
 	return (0);
 }
@@ -68,18 +67,19 @@ void	exec_builtin(char *cmmd, char **av, char **env, t_var *v)
 	char	*builtin[] = {"echo", "cd", "pwd", "env", "export", "unset", "exit"};
 	char	cwd[PATH_MAX];
 	int	i;
-
 	make_list(v, env);
 	if(ft_strcmp(builtin[0], cmmd) == 0)
 	{
 		if(echo_option(av[2]) == 1)
 			printf("%s\n",av[3]);
-		else if (echo_option(av[2]) == 1)
+		else if (echo_option(av[2]) == 0)
 		{
 			i = 2;
 			while (i < v->arc)
 			{
-				printf("%s\n", av[i]);
+				printf("%s", av[i]);
+				if(i != v->arc - 1)
+					printf(" ");
 				i++;
 			}
 		}

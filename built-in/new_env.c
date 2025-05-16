@@ -6,7 +6,7 @@
 /*   By: nikhtib <nikhtib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/27 17:19:09 by nikhtib           #+#    #+#             */
-/*   Updated: 2025/05/13 20:00:11 by nikhtib          ###   ########.fr       */
+/*   Updated: 2025/05/15 09:50:12 by nikhtib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,4 +25,5 @@ void    new_env(t_var *v)
         v->list = v->list->next;
         i++;
     }
+    v->new_env[i] = NULL;
 }
